@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/index.css')}}" type="text/css">
+
+  </head>
+  <body>
+
+    <div class="container">
+      <div class="main">
+        <div class="header">
+          <h1>Fit Challenges</h1>
+        </div>
+
+        <div class="menu">
+          <div class="navItem">
+            <a href="index.html" class="active">Log Out</a>
+          </div>
+          <div class="navItem">
+            <a href="participate.html" class="active">View Challenges</a>
+          </div>
+          <div class="navItem">
+            <a href="create.html" class="active">Create Challenge</a>
+          </div>
+          <div class="active-page">
+            <a href="userhome.html" class="active">Profile</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="userhome">
+        <div class="subheader">
+          Welcome back, {{user}}
+        </div>
+
+        <form style="border:none; outline:0;" method="GET">
+          <fieldset>
+            <label style="font-size:18pt" for="search">Filter challenges based on keyword:</label>
+            <input type="text" name="input">
+            <input type="submit" name='search' value="Submit">
+            <input name="Reset" type="submit" value="Refresh Page">
+
+          </fieldset>
+        </form>
+
+
+        <div class="item">
+          <b>Favorite Challenges</b>
+
+          <!--Make this section loop to look through the database and create
+          each block depending on how many chalenges are labelled as favorites-->
+          <div class="challenge">
+            <div class="block">
+              <div class="challenge-image"></div> <!-- Should include the challenge image -->
+              <div class="challenge-name">Challenge Name</div>
+            </div>
+
+            <div class="block">
+              <div class="challenge-image"></div> <!-- Should include the challenge image -->
+              <div class="challenge-name">Challenge Name</div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="item">
+          <b>Active Challenges</b>
+
+          <!--Make this section loop to look through the database and create
+          each block depending on how many chalenges are labelled as active-->
+          <div class="challenge">
+            <div class="block">
+              <div class="challenge-image"></div> <!-- Should include the challenge image -->
+              <div class="challenge-name">Challenge Name</div>
+            </div>
+
+            <div class="block">
+              <div class="challenge-image"></div> <!-- Should include the challenge image -->
+              <div class="challenge-name">Challenge Name</div>
+            </div>
+
+            <div class="block">
+              <div class="challenge-image"></div> <!-- Should include the challenge image -->
+              <div class="challenge-name">Challenge Name</div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="item">
+          <b>Completed Challenges</b>
+
+          <!--Make this section loop to look through the database and create
+          each block depending on how many chalenges are labelled as completed-->
+          <div class="challenge">
+            <div class="block">
+              <div class="challenge-image"></div> <!-- Should include the challenge image -->
+              <div class="challenge-name">Challenge Name</div>
+            </div>
+
+            <div class="block">
+              <div class="challenge-image"></div> <!-- Should include the challenge image -->
+              <div class="challenge-name">Challenge Name</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <b>Badges</b>
+
+          <!--Make this section loop to look through the database and create
+          each block depending on how many badges the user has-->
+          <div class="badge">
+            <div class="block1">
+              <div class="badge-image"></div> <!-- Should include the challenge image -->
+              <div class="badge-name">Badge Name</div>
+            </div>
+
+            <div class="block1">
+              <div class="badge-image"></div> <!-- Should include the challenge image -->
+              <div class="badge-name">Badge Name</div>
+            </div>
+          </div>
+        </div>
+        
+
+
+      </div>
+
+  </div>
+
+
+
+
+  </body>
+</html>
