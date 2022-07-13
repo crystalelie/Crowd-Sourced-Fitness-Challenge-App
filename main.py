@@ -1,12 +1,26 @@
 from flask import Flask, render_template, request
+import badges
+import users
+import challenges
 
 app = Flask(__name__)
+
+app = Flask(__name__)
+app.register_blueprint(challenges.bp)
+app.register_blueprint(users.bp)
+app.register_blueprint(badges.bp)
+
+# We may need these for authorizing and creating users
+# app.register_blueprint(login.bp)
+# app.register_blueprint(oauth.bp)
 
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
+
+##########This might go in the users.py file.######
 
 # TO DO:
 # Add connection to get user's name from the database

@@ -1,4 +1,4 @@
-banners = "banners"
+badges = "badges"
 challenges = "challenges"
 tags = 'tags'
 exercises = 'exercises'
