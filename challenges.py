@@ -14,5 +14,5 @@ bp = Blueprint('challenges', __name__, url_prefix='/challenges')
 
 
 @bp.route('', methods=['POST', 'GET'])
-def name_of_func():
+def challenges_post_get():
     pass
