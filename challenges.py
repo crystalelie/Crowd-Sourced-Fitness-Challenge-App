@@ -91,11 +91,13 @@ def challenges_post_get():
         # Source: https://stackoverflow.com/questions/45111538/javascript-how-to-build-a-checkbox-list-that-returns
         # -the-values-which-have-been
         # goals : list/array of strings
-        # Description : str
+        # badges : str or int for badge_ID
+        # description : str
         # tags : list/array of strings
         new_challenges.update({"name": content["name"], "exercise_type": content["exercise_type"],
                                "duration": int(content["duration"]), "time_unit": int(content["time_unit"]),
-                               "goals": content["goals"], "goals": content["goals"], "owner": sub})
+                               "goals": content["goals"], "badges": content["badges"], "description": content[
+                "description"], "owner": sub})
 
         client.put(new_challenges)
         new_challenges["id"] = new_challenges.key.id
