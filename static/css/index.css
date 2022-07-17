@@ -1,134 +1,45 @@
-html {
-    font-family: "Lucida Sans", sans-serif;
-
-}
-
-.main {
-    overflow: hidden;
-    background-color:#2974e4;
-    color: black;
-    padding: 10px;
-    top:0;
-}
-
-.header {
-    font-size: 30px;
-}
-
-  /* If the screen is big enough, it shows all navigation items*/
-  @media only screen and (min-width:701px) {
-    .main {
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-        margin:0;
-    }
-    .menu {
-        padding: 20px;
-    }
-    .navItem {
-        font-family: Verdana,sans-serif;
-        font-size: 18px;
-        padding:16px;
-        float: right;
-    }
-    .active-page {
-        background-color: white;
-        font-family: Verdana,sans-serif;
-        font-size: 15px;
-        padding:16px;
-        float: right;
-    }
-}
-
-  /* If the screen is small, it shows the adjusted menu*/
-@media only screen and (max-width:700px) {
-    .active-page .navItem{
-        font-family: Verdana,sans-serif;
-        font-size: 18px;
-        padding:20px;
-        float:left;
-    }
-    .active-page{
-        background-color: white;
-        max-width: 130px;
-    }
-}
-
-.active {
-    color:black;
-    text-decoration: none;
-}
-
-.container .main {
-    top:0;
-}
-
-.container .userhome {
-    margin-top: 30px;
-    bottom:0;
-}
-
-.userhome {
-    font-size: 30px;
-    text-align: center;
-}
-
-.subheader {
-    font-size:50px;
-    padding-bottom: 20px;
-}
-
-.item {
-    text-align: left;
-    padding:0px;
-    padding:20px;
-    float:left;
-    width:100%;
-}
-
-.block{
-    padding-top:15px;
-    padding-bottom:0;
-    float:left;
-    padding-left: 30px;
-}
-
-.challenge {
-    float:center;
-}
-
-.challenge-image {
-    background-color:#2974e4; 
-    height:200px; 
-    width:200px
-}
-
-.challenge-name {
-    font-size:25px;
-}
-
-.block1{
-    padding-top:15px;
-    padding-bottom:0;
-    float:left;
-    padding-left: 30px;
-}
-
-.badge {
-    float:center;
-}
-
-.badge-image {
-    background-color:#2974e4; 
-    height:200px; 
-    width:200px
-}
-
-.badge-name {
-    font-size:25px;
-}
+/* Referenced https://www.w3schools.com/css/tryit.asp?filename=trycss_forms*/ 
+input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
   
+  input[type=submit] {
+    width: 100%;
+    background-color: #2974e4;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  input[type=submit]:hover {
+    background-color: #2974e4
+  }
+  
+  .login .signup {
+    background-color: #f2f2f2;
+    text-align: center;
+    display: block;
+  }
 
+  form {
+      width: 50%;
+      display: inline-block;
+      text-align: left;
+  }
 
+  body {
+      text-align: center;
+  }
 
+  h2 {
+    text-align: center;
+  }
