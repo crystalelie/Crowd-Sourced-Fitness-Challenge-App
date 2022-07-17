@@ -2,14 +2,72 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/template.css')}}" type="text/css">
     <link rel="stylesheet" href="{{ url_for('static', filename= 'css/index.css')}}" type="text/css">
 
   </head>
   <body>
 
-    <div class="header">
-      <h1>Crowd Sourced Fitness Challenge App</h1>
-    </div>
+    <div class="container">
+      <div class="main">
+        <div class="header">
+          <h1>Fit Challenges</h1>
+        </div>
+      </div>
+
+        <div class="login">    
+          <h2>Already Have an Account? Log in!</h2>
+    
+          <form method="GET">
+            <fieldset>
+              <label for="name">Email:</label>
+              <input type="text" name="email">
+              <br>
+              <br>
+              <label for="name">Password:</label>
+              <input type="text" name="password">
+              <br>
+              <br>
+              <input type="submit" name='login' value="Login">
+            </br>
+            </fieldset>
+          </form>
+        </div>
+
+
+      <div class="signup">   
+        <h2>New Here? Create an Account!</h2>
+     
+        <form method="GET">
+          <fieldset>
+            <label for="name">First Name:</label>
+            <input type="text" name="fname">
+            <br>
+            <br>
+            <label for="name">Last Name:</label>
+            <input type="text" name="lname">
+            <br>
+            <br>
+            <label for="name">Email:</label>
+            <input type="text" name="email">
+            <br>
+            <br>
+            <label for="name">Password:</label>
+            <input type="text" name="password">
+            <br>
+            <br>
+            <label for="name">Verify Password:</label>
+            <input type="text" name="verifyPassword">
+            <br>
+            <br>
+            <input type="submit" name='signup' value="Sign up">
+          </br>
+          </fieldset>
+        </form>
+      </div>
+
+  </div>
+
 
 
 
