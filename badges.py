@@ -24,6 +24,9 @@ def name_of_func():
     query = client.query(kind=constants.badges)
     badges = list(query.fetch())
     names = []
+    images = []
+    print(badges)
     for badge in badges:
         names.append(badge["name"])
-    return render_template("badges.html", names=names)
+        images.append(badge["image"])
+    return render_template("badges.html", names=names, images=images)
