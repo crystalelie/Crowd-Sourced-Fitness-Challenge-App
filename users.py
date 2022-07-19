@@ -1,4 +1,4 @@
-from flask import Blueprint, request, make_response, jsonify
+from flask import Blueprint, request, make_response, jsonify, render_template
 from google.cloud import datastore
 import constants
 
@@ -16,5 +16,6 @@ bp = Blueprint('home', __name__, url_prefix='/home')
 @bp.route('', methods=['POST', 'GET'])
 def name_of_func():
     if request.method == "GET":
-        pass
+        user = "John Doe"
+        return render_template('userhome.html', user=user)
 
