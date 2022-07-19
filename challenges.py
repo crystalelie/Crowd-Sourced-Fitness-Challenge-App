@@ -1,7 +1,11 @@
-from flask import Blueprint, request, make_response, render_template, url_for, flash
+from flask import Blueprint, request, make_response, render_template, url_for, flash, redirect
 from google.cloud import datastore
 import constants
 from check_jwt import check_jwt
+import constants
+import json
+from json2html import *
+import string
 
 client = datastore.Client()
 
@@ -55,8 +59,8 @@ def challenges_post_get():
             return res
 
         # Check value of contents to make sure they are not null or have valid characters.
-        if set(content["name"]).difference(ascii_letters + digits + whitespace) or \
-                set(content["type"]).difference(ascii_letters + digits + whitespace) \
+        if set(content["name"]).difference(string.ascii_letters + string.digits + string.whitespace) or \
+                set(content["type"]).difference(string.ascii_letters + string.digits + string.whitespace) \
                 or not isinstance(content["length"], int):
             err = json.dumps({"Error 400": "The request object has at least one invalid value assigned to an "
                                            "attribute"})
