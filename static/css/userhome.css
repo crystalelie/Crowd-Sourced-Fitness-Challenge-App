@@ -1,0 +1,66 @@
+
+.userhome {
+    margin-top: 30px;
+    bottom:0;
+}
+
+.userhome {
+    font-size: 30px;
+    text-align: center;
+}
+
+.subheader {
+    font-size:50px;
+    padding-bottom: 20px;
+}
+
+.item {
+    text-align: left;
+    padding:0px;
+    padding:20px;
+    float:left;
+    width:100%;
+}
+
+.block{
+    padding-top:15px;
+    padding-bottom:0;
+    float:left;
+    padding-left: 30px;
+}
+
+.challenge {
+    float:center;
+}
+
+.challenge-image {
+    background-color:#2974e4; 
+    height:200px; 
+    width:200px
+}
+
+.challenge-name {
+    font-size:25px;
+}
+
+.block1{
+    padding-top:15px;
+    padding-bottom:0;
+    float:left;
+    padding-left: 30px;
+}
+
+.badge {
+    float:center;
+}
+
+.badge-image {
+    background-color:#2974e4; 
+    height:200px; 
+    width:200px
+}
+
+.badge-name {
+    font-size:25px;
+}
+  
