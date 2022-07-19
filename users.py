@@ -14,6 +14,7 @@ bp = Blueprint('users', __name__, template_folder='templates', static_folder='st
 
 
 @bp.route('', methods=['POST', 'GET'])
+<<<<<<< HEAD
 def home():
     user="John Doe" # Will be a search to find the current user's name 
 
@@ -37,6 +38,12 @@ def home():
     if not request.args.get('search'):
         #Query for all challenges -- Active, Favorite and Completed
         pass
+=======
+def name_of_func():
+    if request.method == "GET":
+        user = "John Doe"
+        return render_template('userhome.html', user=user)
+>>>>>>> 10987b5d976ebbb32cbfec902ae9be3914dc0e91
 
     else:
         # Status code 405
