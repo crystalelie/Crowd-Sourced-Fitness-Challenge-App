@@ -3,6 +3,8 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename= '')}}" type="text/css">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/index.css')}}" type="text/css">
+
 
   </head>
   <body>
@@ -11,7 +13,36 @@
       <h1>Create a Challenge</h1>
     </div>
 
-
+      <div class="create-challenge">        
+        <form method="GET">
+          <fieldset>
+            <label for="name">Challenge Name:</label>
+            <input type="text" name="name" required>
+            <br>
+            <br>
+            <label for="types">Type:</label>
+            <select name="types" id="types">
+              <option value="running">Running</option>
+              <option value="swimming">Swimming</option>
+              <option value="cardio">Cardio</option>
+              <option value="weightlifting">Weightlifting</option>
+              <option value="calisthenics">Calisthenics</option>
+            </select>
+            <br>
+            <br>
+            <label for="description">Description:</label>
+            <input type="text" name="description" required>
+            <br>
+            <br>
+            <label for="tags">Tags:</label>
+            <input type="text" name="tags" required>
+            <br>
+            <br>
+            <input type="submit" name='submit' value="Submit">
+          </br>
+          </fieldset>
+        </form>
+      </div>
 
   </body>
 </html>

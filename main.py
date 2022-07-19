@@ -4,6 +4,7 @@ import badges
 import users
 import challenges
 import constants
+import create
 
 app = Flask(__name__)
 
@@ -13,6 +14,7 @@ app = Flask(__name__)
 app.register_blueprint(challenges.bp)
 app.register_blueprint(users.bp)
 app.register_blueprint(badges.bp)
+app.register_blueprint(create.bp)
 
 # We may need these for authorizing and creating users
 # app.register_blueprint(login.bp)
