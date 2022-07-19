@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-import nathanbadges
+import badges
 import users
 import challenges
 
@@ -8,7 +8,7 @@ app = Flask(__name__)
 app = Flask(__name__)
 app.register_blueprint(challenges.bp)
 app.register_blueprint(users.bp)
-app.register_blueprint(nathanbadges.bp)
+app.register_blueprint(badges.bp)
 
 # We may need these for authorizing and creating users
 # app.register_blueprint(login.bp)
