@@ -1,11 +1,10 @@
 from flask import Blueprint, request, make_response, render_template, url_for, flash, redirect
+from string import ascii_letters, digits
 from google.cloud import datastore
-import constants
-from check_jwt import check_jwt
 import constants
 import json
 from json2html import *
-import string
+from check_jwt import check_jwt
 
 client = datastore.Client()
 
@@ -59,8 +58,8 @@ def challenges_post_get():
             return res
 
         # Check value of contents to make sure they are not null or have valid characters.
-        if set(content["name"]).difference(string.ascii_letters + string.digits + string.whitespace) or \
-                set(content["type"]).difference(string.ascii_letters + string.digits + string.whitespace) \
+        if set(content["name"]).difference(ascii_letters + digits + " ") or \
+                set(content["type"]).difference(ascii_letters + digits + " ") \
                 or not isinstance(content["length"], int):
             err = json.dumps({"Error 400": "The request object has at least one invalid value assigned to an "
                                            "attribute"})
@@ -101,7 +100,7 @@ def challenges_post_get():
         new_challenges.update({"name": content["name"], "exercise_type": content["exercise_type"],
                                "duration": int(content["duration"]), "time_unit": int(content["time_unit"]),
                                "goals": content["goals"], "badges": content["badges"], "description": content[
-                "description"], "owner": sub})
+                "description"], "owner": "test"})
 
         client.put(new_challenges)
         new_challenges["id"] = new_challenges.key.id
@@ -133,35 +132,35 @@ def challenges_post_get():
 
         # Reset the query to show the objects
         query = client.query(kind=constants.challenges)
-        query.add_filter("owner", "=", sub)
+        # query.add_filter("name", "=", sub)
         q_limit = int(request.args.get('limit', '10'))
         q_offset = int(request.args.get('offset', '0'))
 
         # Get result of query and make into a list
         challenges_iterator = query.fetch(limit=q_limit, offset=q_offset)
         pages = challenges_iterator.pages
-        # print(type(pages))
-        # results = list(next(pages))
-        #
-        # # Create a "next" url page using
-        # if challenges_iterator.next_page_token:
-        #     next_offset = q_offset + q_limit
-        #     next_url = request.base_url + "?limit=" + str(q_limit) + "&offset=" + str(next_offset)
-        # else:
-        #     next_url = None
-        #
-        # # Adds id key and value to each json slip; add next url
-        # for challenges in results:
-        #     challenges["id"] = challenges.key.id
-        #     challenges["self"] = request.base_url + "/" + str(challenges.key.id)
-        # output = {"challenges": results}
-        #
-        # if next_url:
-        #     output["next"] = next_url
-        #
-        # output["total_challenges"] = len(total_challenges)
+        print(type(pages))
+        results = list(next(pages))
 
-        res = make_response(render_template('participate.html'))
+        # Create a "next" url page using
+        if challenges_iterator.next_page_token:
+            next_offset = q_offset + q_limit
+            next_url = request.base_url + "?limit=" + str(q_limit) + "&offset=" + str(next_offset)
+        else:
+            next_url = None
+
+        # Adds id key and value to each json slip; add next url
+        for challenges in results:
+            challenges["id"] = challenges.key.id
+            challenges["self"] = request.base_url + "/" + str(challenges.key.id)
+        output = {"challenges": results}
+
+        if next_url:
+            output["next"] = next_url
+
+        output["total_challenges"] = len(total_challenges)
+
+        res = make_response(render_template("participate.html", content=output))
         res.headers.set('Content-Type', 'text/html')
         res.status_code = 200
         return res
