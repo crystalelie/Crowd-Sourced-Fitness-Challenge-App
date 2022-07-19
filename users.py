@@ -6,7 +6,7 @@ import constants
 # They are for json and the others are for authorizing tokens from the user
 # import json
 # from google.oauth2 import id_token
-# from google.auth.transport import requests
+# from googgle.auth.transport import requests
 
 client = datastore.Client()
 
@@ -14,7 +14,6 @@ bp = Blueprint('users', __name__, template_folder='templates', static_folder='st
 
 
 @bp.route('', methods=['POST', 'GET'])
-<<<<<<< HEAD
 def home():
     user="John Doe" # Will be a search to find the current user's name 
 
@@ -38,12 +37,6 @@ def home():
     if not request.args.get('search'):
         #Query for all challenges -- Active, Favorite and Completed
         pass
-=======
-def name_of_func():
-    if request.method == "GET":
-        user = "John Doe"
-        return render_template('userhome.html', user=user)
->>>>>>> 10987b5 (working on badges)
 
     else:
         # Status code 405

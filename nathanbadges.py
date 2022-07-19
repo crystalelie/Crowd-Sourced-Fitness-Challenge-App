@@ -25,5 +25,5 @@ def name_of_func():
     badges = list(query.fetch())
     names = []
     for badge in badges:
-        names.append(badge["Name"])
+        names.append(badge["name"])
     return render_template("badges.html", names=names)
