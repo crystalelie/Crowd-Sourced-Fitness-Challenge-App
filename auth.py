@@ -23,8 +23,8 @@ def login_post():
         return redirect(url_for('index')) # if the user doesn't exist or password is wrong, reload the page
 
     # # if the above check passes, then we know the user has the right credentials
-    user[0]["logged_in"] = True
-    return redirect(url_for('users.home', id=user[0].id))
+    new_route = '/home/' + str(user[0].id)
+    return redirect(new_route)
 
 @auth.route('/signup', methods=['POST'])
 def signup_post():
@@ -48,7 +48,7 @@ def signup_post():
     new_user = datastore.entity.Entity(key=client.key(constants.users))
     # create a new user with the form data. Hash the password so the plaintext version isn't saved.
     new_user.update({"first_name": first_name, "last_name": last_name, 
-    "password": hash_pw, "email": email, "logged_in": False})
+    "password": hash_pw, "email": email})
     client.put(new_user)
 
     return redirect(url_for('index'))
