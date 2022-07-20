@@ -3,8 +3,8 @@ from string import ascii_letters, digits
 from google.cloud import datastore
 import constants
 import json
-from json2html import *
-from check_jwt import check_jwt
+# from json2html import *
+# from check_jwt import check_jwt
 
 client = datastore.Client()
 
