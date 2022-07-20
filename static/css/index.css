@@ -43,3 +43,7 @@ input[type=text], select {
   h2 {
     text-align: center;
   }
+
+  .flash-message{
+    color: red
+  }
