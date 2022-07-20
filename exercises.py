@@ -19,7 +19,15 @@ def exercises_post_get():
         exercises_iterator = query.fetch()
         total_challenges = list(exercises_iterator)
         output = {"exercises": total_challenges}
-        return json.dumps(output)
+
+        res = make_response(json.dumps(output))
+        res.mimetype = 'application/json'
+        res.status_code = 200
+        return res
 
     elif request.method == 'POST':
-        pass
+        content = request.get_json()
+        new_exercise = datastore.entity.Entity(key=client.key(constants.challenges))
+        new_exercise.update({"name": content["name"]})
+
+        client.put(new_exercise)

@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename= '')}}" type="text/css">
+{#    <link rel="stylesheet" href="{{ url_for('static', filename= '')}}" type="text/css">#}
     <link rel="stylesheet" href="{{ url_for('static', filename= 'css/index.css')}}" type="text/css">
 
 
@@ -13,6 +13,9 @@
       <h1>Create a Challenge</h1>
     </div>
 
+                    <th>Goals</th>
+                    <th>Tags</th>
+
       <div class="create-challenge">        
         <form method="POST">
           <fieldset>
@@ -20,30 +23,39 @@
             <input type="text" name="name" required>
             <br>
             <br>
-            <label for="types">Type:</label>
+
+            <label>Exercise Type:</label>
+            <br>
+            <input list="exercise_type" name="exercise_type" required />
+            <datalist id="exercise_type" name="exercise_type">
               {% for row in exercises['exercises'] %}
-
-                    <td>{{row['name']}}</td>
-                    <td>{{row['exercise_type']}}</td>
-                    <td>{{row['description']}}</td>
-                    <td>{{row['goals']}}</td>
-                    <td>{{row['duration']}}</td>
-                    <td>{{row['time_unit']}}</td>
-                    <td>{{row['goals']}}</td>
-                    <td>{{row['tags']}}</td>
-
-                {% endfor %}
-            <select name="types" id="types">
-              <option value="running">Running</option>
-              <option value="swimming">Swimming</option>
-              <option value="cardio">Cardio</option>
-              <option value="weightlifting">Weightlifting</option>
-              <option value="calisthenics">Calisthenics</option>
+                    <option value={{ row['name'] }}> {{ row['name'] }} </option>
+              {% endfor %}
+            </datalist>
+            <br>
+            <br>
+             <label for="description">Description:</label>
+            <input type="text" name="description" required>
+            <br>
+            <br>
+          <label for="duration">Duration:</label>
+            <input type="number" pattern="/d+" name="duration" required>
+          <br>
+              <br>
+          <label for="time_unit">Unit of Time:</label>
+          <select name="time_unit" id="time_unit" required>
+              <option value="months">Months</option>
+              <option value="days">Days</option>
+              <option value="hours">Hours</option>
+              <option value="minutes">Minutes</option>
+              <option value="seconds">Seconds</option>
             </select>
             <br>
             <br>
-            <label for="description">Description:</label>
-            <input type="text" name="description" required>
+          <label for="goals">Goals:</label>
+          <input type="text" name="goals[]" required>
+          <input type="text" name="goals[]">
+          <input type="text" name="goals[]">
             <br>
             <br>
             <label for="tags">Tags:</label>

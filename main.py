@@ -15,14 +15,11 @@ app.register_blueprint(badges.bp)
 app.register_blueprint(exercises.bp)
 app.register_blueprint(auth.auth)
 
-# We may need these for authorizing and creating users
-# app.register_blueprint(login.bp)
-# app.register_blueprint(oauth.bp)
-
 
 @app.route('/')
 def index():
     return render_template('index.html')
+
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)
