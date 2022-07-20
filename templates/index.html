@@ -15,10 +15,18 @@
         </div>
       </div>
 
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+       <div class="flash-message">
+      {{ messages[0] }}
+       </div>
+      {% endif %}
+      {% endwith %}
+
         <div class="login">    
           <h2>Already Have an Account? Log in!</h2>
     
-          <form method="GET">
+          <form method="POST" action="/login" >
             <fieldset>
               <label for="name">Email:</label>
               <input type="text" name="email">
@@ -38,7 +46,8 @@
       <div class="signup">   
         <h2>New Here? Create an Account!</h2>
      
-        <form method="GET">
+
+        <form method="POST" action="/signup">
           <fieldset>
             <label for="name">First Name:</label>
             <input type="text" name="fname" required>
@@ -56,10 +65,6 @@
             <input type="text" name="password" required>
             <br>
             <br>
-            <label for="name">Verify Password:</label>
-            <input type="text" name="verifyPassword" required>
-            <br>
-            <br>
             <input type="submit" name='signup' value="Sign up">
           </br>
           </fieldset>
@@ -67,9 +72,6 @@
       </div>
 
   </div>
-
-
-
 
   </body>
 </html>

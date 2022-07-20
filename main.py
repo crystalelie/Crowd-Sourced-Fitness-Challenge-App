@@ -3,16 +3,17 @@ import badges
 import users
 import challenges
 import exercises
-
-
-app = Flask(__name__)
+import auth
 
 app = Flask(__name__)
+
+app = Flask(__name__)
+app.secret_key = "tAkdK6Aj6X5^649&h0jg$"
 app.register_blueprint(challenges.bp)
 app.register_blueprint(users.bp)
 app.register_blueprint(badges.bp)
 app.register_blueprint(exercises.bp)
-
+app.register_blueprint(auth.auth)
 
 # We may need these for authorizing and creating users
 # app.register_blueprint(login.bp)
