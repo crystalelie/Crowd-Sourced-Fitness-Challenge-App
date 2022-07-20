@@ -68,7 +68,6 @@
                     <td>{{row['goals']}}</td>
                     <td>{{row['duration']}}</td>
                     <td>{{row['time_unit']}}</td>
-                    <td>{{row['goals']}}</td>
                     <td>{{row['tags']}}</td>
                     <td>
 
@@ -87,24 +86,6 @@
                             <button class="alt-button" type="submit"
                                 >Delete</button>
 
-                        <form action="/challenges/<id>" method="PUT">
-                            <button class="alt-button" type="submit" name="challenge_id"
-                                value="{{ row['id'] }}">Participate</button>
-                        </form>
-                    </td>
-                    <td>
-                        <form action="/challenges/<id>" method="PATCH">
-                            <button class="alt-button" type="submit" name="challenge_id"
-                                value="{{ row['id'] }}">Edit</button>
-                        </form>
-                    </td>
-                    <td>
-                        <form action="/challenges/<id>" method="DELETE">
-                            <button class="alt-button" type="submit"
-                                value="{{ row['id'] }}">Delete</button>
-
-                        </form>
-                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
