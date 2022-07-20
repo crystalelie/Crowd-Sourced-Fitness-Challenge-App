@@ -11,11 +11,19 @@
       <h1>Participate in a Challenge</h1>
     </div>
 
+
+        <h2 class="page-title">Search for Challenges by Tag</h2>
+    </div>
+    <div>
+        <form action="/challenges/search>" method="GET">
+            <input class="search-med" type="text" placeholder="Enter tag " />
+
         <h2 class="page-title">Search Challenge by exercise type</h2>
     </div>
     <div>
         <form action="/challenges/search>" method="POST">
             <input class="search-med" type="text" placeholder="Enter exercise type " />
+
 
             <button id="search-button" type="submit" value="Submit">
                 Search
@@ -24,10 +32,15 @@
     </div>
 
     <section>
+
+
+        <table id="challenges">
+
 {#        <div>#}
 {#            <h2 class="page-title">List of Available Challenges</h2>#}
 {#        </div>#}
         <table id="medications">
+
             <caption>
                 List of Available Challenges
             </caption>
@@ -58,6 +71,22 @@
                     <td>{{row['goals']}}</td>
                     <td>{{row['tags']}}</td>
                     <td>
+
+                        <form action="/challenges/{{row['id']}}" method="PUT">
+                            <button class="alt-button" type="submit">Participate</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/challenges/{{row['id']}}" method="PATCH">
+                            <button class="alt-button" type="submit"
+                                >Edit</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/challenges/{{row['id']}}" method="DELETE">
+                            <button class="alt-button" type="submit"
+                                >Delete</button>
+
                         <form action="/challenges/<id>" method="PUT">
                             <button class="alt-button" type="submit" name="challenge_id"
                                 value="{{ row['id'] }}">Participate</button>
@@ -73,6 +102,7 @@
                         <form action="/challenges/<id>" method="DELETE">
                             <button class="alt-button" type="submit"
                                 value="{{ row['id'] }}">Delete</button>
+
                         </form>
                     </td>
                 </tr>

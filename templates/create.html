@@ -14,13 +14,25 @@
     </div>
 
       <div class="create-challenge">        
-        <form method="GET">
+        <form method="POST">
           <fieldset>
             <label for="name">Challenge Name:</label>
             <input type="text" name="name" required>
             <br>
             <br>
             <label for="types">Type:</label>
+              {% for row in exercises['exercises'] %}
+
+                    <td>{{row['name']}}</td>
+                    <td>{{row['exercise_type']}}</td>
+                    <td>{{row['description']}}</td>
+                    <td>{{row['goals']}}</td>
+                    <td>{{row['duration']}}</td>
+                    <td>{{row['time_unit']}}</td>
+                    <td>{{row['goals']}}</td>
+                    <td>{{row['tags']}}</td>
+
+                {% endfor %}
             <select name="types" id="types">
               <option value="running">Running</option>
               <option value="swimming">Swimming</option>
