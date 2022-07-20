@@ -5,6 +5,7 @@ from string import ascii_letters, digits
 import json
 import constants
 import requests
+from goal_convert import goal_convert
 
 client = datastore.Client()
 
@@ -60,18 +61,13 @@ def home(uid):
         return res
 
 
-@bp.route('/<cid>/challenge', methods=['POST', 'GET'])
-def create_challenge(cid):
+@bp.route('/<uid>/challenge', methods=['POST', 'GET'])
+def create_challenge(uid):
     if request.method == 'POST':
 
-        content = request.form.to_dict()
+        res_content = request.form.to_dict()
         goal_list = request.form.getlist('goals[]')
-        del content["submit"]
-        del content["goals[]"]
-        content['exercise_type'] = content["exercise_type"].lower()
-        content['goals'] = goal_list
-
-        print(content)
+        content = goal_convert(res_content, goal_list)
 
         # Check contents of the json file to make sure keys have values, and it is not empty.
         # Only supported attributes will be used. Any additional ones will be ignored.
@@ -101,11 +97,12 @@ def create_challenge(cid):
             if exercise["name"] == content["exercise_type"]:
                 exe_flag = True
 
-        if exe_flag:
+        if not exe_flag:
+            url = url_for("exercises.exercises_post_get", _external=True)
             data = {
                 "name": content["exercise_type"]
             }
-            requests.post(url_for("exercises.exercises_post_get"), data=data)
+            requests.post(url, json=json.dumps(data))
 
         # Name of challenges must be unique
         query = client.query(kind=constants.challenges)
@@ -120,21 +117,19 @@ def create_challenge(cid):
                 res.status_code = 403
                 return res
 
-        # For future bug closure: Query list of users. If sub not in list of users, return a 401
-
         # Create new challenges entity
         new_challenges = datastore.entity.Entity(key=client.key(constants.challenges))
         new_challenges.update({"name": content["name"], "exercise_type": content["exercise_type"],
                                "duration": int(content["duration"]), "time_unit": content["time_unit"],
                                "goals": content["goals"], "description": content[
-                "description"],"tags": content["tags"], "owner": cid})
+                "description"], "tags": content["tags"], "owner": uid})
 
         client.put(new_challenges)
-        # new_challenges["id"] = new_challenges.key.id
-        # new_challenges["self"] = request.base_url + "/" + str(new_challenges.key.id)
 
         flash('Challenge created successfully!')
-        return redirect(url_for('challenges.challenges_get'))
+        url = request.root_url + "/challenges/" + uid
+
+        return redirect(url)
 
     elif request.method == "GET":
         url = url_for("exercises.exercises_post_get", _external=True)

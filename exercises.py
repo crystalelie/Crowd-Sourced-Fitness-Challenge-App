@@ -26,8 +26,16 @@ def exercises_post_get():
         return res
 
     elif request.method == 'POST':
-        content = request.get_json()
-        new_exercise = datastore.entity.Entity(key=client.key(constants.challenges))
+        content = json.loads(request.get_json())
+        print(content)
+        new_exercise = datastore.entity.Entity(key=client.key(constants.exercises))
         new_exercise.update({"name": content["name"]})
-
         client.put(new_exercise)
+
+        res = make_response(json.dumps(new_exercise))
+        res.mimetype = 'application/json'
+        res.status_code = 200
+        return res
+
+
+
