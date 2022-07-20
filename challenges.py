@@ -57,8 +57,6 @@ def challenges_get():
         if next_url:
             output["next"] = next_url
 
-        output["total_challenges"] = len(total_challenges)
-
         res = make_response(render_template("participate.html", content=output))
         res.headers.set('Content-Type', 'text/html')
         res.status_code = 200

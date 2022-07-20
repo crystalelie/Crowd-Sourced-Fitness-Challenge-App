@@ -3,8 +3,8 @@ from string import ascii_letters, digits
 from google.cloud import datastore
 import constants
 import json
-from json2html import *
-from check_jwt import check_jwt
+# from json2html import *
+# from check_jwt import check_jwt
 
 client = datastore.Client()
 
@@ -19,7 +19,15 @@ def exercises_post_get():
         exercises_iterator = query.fetch()
         total_challenges = list(exercises_iterator)
         output = {"exercises": total_challenges}
-        return json.dumps(output)
+
+        res = make_response(json.dumps(output))
+        res.mimetype = 'application/json'
+        res.status_code = 200
+        return res
 
     elif request.method == 'POST':
-        pass
+        content = request.get_json()
+        new_exercise = datastore.entity.Entity(key=client.key(constants.challenges))
+        new_exercise.update({"name": content["name"]})
+
+        client.put(new_exercise)
