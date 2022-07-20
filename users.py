@@ -125,7 +125,6 @@ def create_challenge(uid):
                 "description"], "tags": content["tags"], "owner": uid})
 
         client.put(new_challenges)
-
         flash('Challenge created successfully!')
         url = request.root_url + "/challenges/" + uid
 
