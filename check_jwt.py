@@ -3,7 +3,6 @@ from json2html import *
 from flask import request, make_response
 from google.oauth2 import id_token
 from google.auth.transport import requests
-import constants 
 
 
 def check_jwt(headers):
