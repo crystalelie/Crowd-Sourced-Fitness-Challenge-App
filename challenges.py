@@ -1,3 +1,4 @@
+
 from flask import Blueprint, request, make_response, render_template  # , url_for, flash, redirect
 from string import ascii_letters, digits
 from google.cloud import datastore
@@ -331,6 +332,7 @@ def challenges_get_put_delete(cid):
                 res.status_code = 403
                 return res
 
+
         # Checks if user is on the challenge, updates all user names
         if challenge["users"]:
             for user_item in challenge["users"]:
@@ -383,6 +385,41 @@ def challenges_get_put_delete(cid):
         res.status_code = 204
         return res
 
+        # For future bug closure: Query list of users. If sub not in list of users, return a 401
+
+        # Create new challenges entity
+        new_challenges = datastore.entity.Entity(key=client.key(constants.challenges))
+        ### Make changes to attribute names if necessary
+        # Schema:
+        # Name : str
+        # exercise_type : str or exercise_type_id (will need to pick one)
+        # duration : int
+        # time_unit : str
+        # Source: https://stackoverflow.com/questions/45111538/javascript-how-to-build-a-checkbox-list-that-returns
+        # -the-values-which-have-been
+        # goals : list/array of strings
+        # badges : str or int for badge_ID
+        # description : str
+        # tags : list/array of strings
+        new_challenges.update({"name": content["name"], "exercise_type": content["exercise_type"],
+                               "duration": int(content["duration"]), "time_unit": int(content["time_unit"]),
+                               "goals": content["goals"], "badges": content["badges"], "description": content[
+                "description"], "owner": "test"})
+
+        client.put(new_challenges)
+        new_challenges["id"] = new_challenges.key.id
+        new_challenges["self"] = request.base_url + "/" + str(new_challenges.key.id)
+
+        flash('Challenge created successfully!')
+        return redirect(url_for('challenges_post_get'))
+
+        ## IF statement for below if requesting just the json in the header Accept
+        # res = make_response(json.dumps(new_challenges))
+        # res.mimetype = 'application/json'
+        # res.status_code = 201
+        # return res
+
+
     elif request.method == 'GET':
 
         if ('*/*' or 'application/json') not in request.accept_mimetypes:
@@ -396,6 +433,7 @@ def challenges_get_put_delete(cid):
         challenge_key = client.key(constants.challenges, int(cid))
         challenge = client.get(key=challenge_key)
 
+
         # Check if challenge exists
         if not challenge:
             return {"Error": "No challenge with this challenge_id exists"}, 404
@@ -406,6 +444,40 @@ def challenges_get_put_delete(cid):
         # Sends json response
         res = make_response(json.dumps(challenge))
         res.headers.set('Content-Type', 'application/json')
+
+        # Reset the query to show the objects
+        query = client.query(kind=constants.challenges)
+        # query.add_filter("name", "=", sub)
+        q_limit = int(request.args.get('limit', '10'))
+        q_offset = int(request.args.get('offset', '0'))
+
+        # Get result of query and make into a list
+        challenges_iterator = query.fetch(limit=q_limit, offset=q_offset)
+        pages = challenges_iterator.pages
+        print(type(pages))
+        results = list(next(pages))
+
+        # Create a "next" url page using
+        if challenges_iterator.next_page_token:
+            next_offset = q_offset + q_limit
+            next_url = request.base_url + "?limit=" + str(q_limit) + "&offset=" + str(next_offset)
+        else:
+            next_url = None
+
+        # Adds id key and value to each json slip; add next url
+        for challenges in results:
+            challenges["id"] = challenges.key.id
+            challenges["self"] = request.base_url + "/" + str(challenges.key.id)
+        output = {"challenges": results}
+
+        if next_url:
+            output["next"] = next_url
+
+        output["total_challenges"] = len(total_challenges)
+
+        res = make_response(render_template("participate.html", content=output))
+        res.headers.set('Content-Type', 'text/html')
+
         res.status_code = 200
         return res
 

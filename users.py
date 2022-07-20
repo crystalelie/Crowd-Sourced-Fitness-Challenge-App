@@ -17,7 +17,9 @@ client = datastore.Client()
 bp = Blueprint('users', __name__, template_folder='templates', static_folder='static', url_prefix='/home')
 
 
+
 # Change route so that it is passing the id in it
+
 @bp.route('', methods=['POST', 'GET'])
 def home():
 

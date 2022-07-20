@@ -6,6 +6,7 @@ from google.auth.transport import requests
 import constants
 
 
+
 def check_jwt(headers):
     # Checks if JWT was provided in Authorization header
     if 'Authorization' in headers:
