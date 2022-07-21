@@ -18,7 +18,7 @@
             <a href="/" class="active">Log Out</a>
           </div>
           <div class="navItem">
-            <a href="/challenges" class="active">View Challenges</a>
+            <a href="/challenges/{{ user_name["id"] }}" class="active">View Challenges</a>
           </div>
           <div class="navItem">
             <a href="/home/{{user_name["id"]}}/challenge" class="active">Create Challenge</a>
@@ -50,7 +50,7 @@
           <b>Favorite Challenges</b>
 
           <!--Make this section loop to look through the database and create
-          each block depending on how many chalenges are labelled as favorites-->
+          each block depending on how many challenges are labelled as favorites-->
           <div class="challenge">
             <div class="block">
               <div class="challenge-image">

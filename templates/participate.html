@@ -13,16 +13,20 @@
 
 
         <h2 class="page-title">Search for Challenges by Tag</h2>
-    </div>
+
     <div>
         <form action="/challenges/search>" method="GET">
-            <input class="search-med" type="text" placeholder="Enter tag " />
-
-        <h2 class="page-title">Search Challenge by exercise type</h2>
+            <input class="search-med" type="text" placeholder="Enter tag " required/>
+        </form>
     </div>
+
+
+    <h2 class="page-title">Search Challenge by exercise type</h2>
+
+
     <div>
-        <form action="/challenges/search>" method="POST">
-            <input class="search-med" type="text" placeholder="Enter exercise type " />
+        <form action="/challenges/search>" method="GET">
+            <input class="search-med" type="text" placeholder="Enter exercise type " required/>
 
 
             <button id="search-button" type="submit" value="Submit">
@@ -65,27 +69,26 @@
                     <td>{{row['name']}}</td>
                     <td>{{row['exercise_type']}}</td>
                     <td>{{row['description']}}</td>
-                    <td>{{row['goals']}}</td>
                     <td>{{row['duration']}}</td>
                     <td>{{row['time_unit']}}</td>
+                    <td>{{row['goals']}}</td>
                     <td>{{row['tags']}}</td>
                     <td>
 
-                        <form action="/challenges/{{row['id']}}" method="PUT">
+                        <form action="/challenges/{{row['id']}}/user/{{ content['user'] }}" method="PUT">
                             <button class="alt-button" type="submit">Participate</button>
                         </form>
                     </td>
                     <td>
-                        <form action="/challenges/{{row['id']}}" method="PATCH">
+                        <form action="/challenges/{{row['id']}}/user/{{ content['user'] }}" method="PATCH">
                             <button class="alt-button" type="submit"
                                 >Edit</button>
                         </form>
                     </td>
                     <td>
-                        <form action="/challenges/{{row['id']}}" method="DELETE">
+                        <form action="/challenges/{{row['id']}}/user/{{ content['user'] }}" method="DELETE">
                             <button class="alt-button" type="submit"
                                 >Delete</button>
-
                 </tr>
                 {% endfor %}
             </tbody>

@@ -12,15 +12,12 @@ client = datastore.Client()
 bp = Blueprint('challenges', __name__, url_prefix='/challenges')
 
 
-@bp.route('', methods=['GET'])
-def challenges_get():
+@bp.route('/<uid>', methods=['GET'])
+def challenges_get(uid):
     # Checks if JWT was provided in Authorization header
     # sub = check_jwt(request.headers)
 
     if request.method == 'GET':
-
-        # if "create" in request.args:
-        #     return render_template("create.html")
 
         if ('*/*' or 'application/json') not in request.accept_mimetypes:
             # Checks if client accepts json, if not return 406
@@ -52,7 +49,7 @@ def challenges_get():
         for challenges in total_challenges:
             challenges["id"] = challenges.key.id
             challenges["self"] = request.base_url + "/" + str(challenges.key.id)
-        output = {"challenges": total_challenges}
+        output = {"challenges": total_challenges, "user": uid}
 
         if next_url:
             output["next"] = next_url
@@ -69,7 +66,6 @@ def challenges_get():
         res.headers.set('Content-Type', 'text/html')
         res.status_code = 405
         return res
-
 
 ## Change to tags. Should we create new tag entity?  Should we search by something else? Drop down menu instead of
 # search box?
@@ -250,105 +246,6 @@ def challenges_get_put_delete(cid):
         res.status_code = 200
         return res
 
-    elif request.method == 'PUT':
-
-        if not request.is_json:
-            # Checks if sent data is json, if not return 415
-            err = {"Error": "The request header 'content_type' is not application/json "
-                            "and/or the sent request body does not contain json"}
-            res = make_response(err)
-            res.headers.set('Content-Type', 'application/json')
-            res.status_code = 415
-            return res
-
-        elif 'application/json' not in request.accept_mimetypes:
-            # Checks if client accepts json, if not return 406
-            err = {"Error": "The request header ‘Accept' is not application/json"}
-            res = make_response(err)
-            res.headers.set('Content-Type', 'application/json')
-            res.status_code = 406
-            return res
-
-        # Checks if sent data is json, if not return 415
-        try:
-            content = request.get_json()
-        except:
-            err = {"Error": "The request header 'content_type' is not application/json "
-                            "and/or the sent request body does not contain json"}
-            res = make_response(err)
-            res.headers.set('Content-Type', 'application/json')
-            res.status_code = 415
-            return res
-
-        challenge_key = client.key(constants.challenges, int(cid))
-        challenge = client.get(key=challenge_key)
-
-        # Checks if challenge with challenge_id exists
-        if not challenge:
-            err = {"Error": "No challenge with this challenge_id exists"}
-            res = make_response(err)
-            res.headers.set('Content-Type', 'application/json')
-            res.status_code = 404
-            return res
-
-        elif challenge["owner"] != cid:
-            err = {"Error": "The challenge is owned by another user"}
-            res = make_response(err)
-            res.headers.set('Content-Type', 'application/json')
-            res.status_code = 401
-            return res
-
-        # Check contents of the json file to make sure keys have values, and it is not empty.
-        # Only supported attributes will be used. Any additional ones will be ignored.
-        if not content or "name" not in content or "type" not in content or "length" not in content:
-            err = {"Error": "The request object is missing at least one of the required attributes"}
-            res = make_response(err)
-            res.headers.set('Content-Type', 'application/json')
-            res.status_code = 400
-            return res
-
-        # Check value of contents to make sure they are not null or have valid characters.
-        if set(content["name"]).difference(ascii_letters + digits + " ") or \
-                set(content["type"]).difference(ascii_letters + digits + " ") \
-                or not isinstance(content["length"], int):
-            err = {"Error": "The request object has at least one invalid value assigned to an attribute"}
-            res = make_response(err)
-            res.headers.set('Content-Type', 'application/json')
-            res.status_code = 400
-            return res
-
-        # Name of challenge must be unique
-        query = client.query(kind=constants.challenges)
-        challenge_list = list(query.fetch())
-
-        # Search all challenge objects and compare the names to make sure they are unique
-        for curr_challenge in challenge_list:
-            if curr_challenge["name"] == content["name"]:
-                err = {"Error": "There is already a challenge with that name"}
-                res = make_response(err)
-                res.headers.set('Content-Type', 'application/json')
-                res.status_code = 403
-                return res
-
-
-        # Checks if user is on the challenge, updates all user names
-        if challenge["users"]:
-            for user_item in challenge["users"]:
-                user_key = client.key(constants.users, int(user_item["id"]))
-                user = client.get(key=user_key)
-                user["carrier"]["name"] = content["name"]
-                user.update(user)
-                client.put(user)
-
-        # Edits all the attributes, except the id
-        challenge.update({"name": content["name"], "type": content["type"], "length": content["length"]})
-        client.put(challenge)
-
-        res = make_response(json.dumps(challenge))
-        res.mimetype = 'application/json'
-        res.status_code = 200
-        return res
-
     elif request.method == 'DELETE':
         challenge_key = client.key(constants.challenges, int(cid))
         challenge = client.get(key=challenge_key)
@@ -384,21 +281,6 @@ def challenges_get_put_delete(cid):
         return res
 
         # For future bug closure: Query list of users. If sub not in list of users, return a 401
-
-        # Create new challenges entity
-        new_challenges = datastore.entity.Entity(key=client.key(constants.challenges))
-        ### Make changes to attribute names if necessary
-        # Schema:
-        # Name : str
-        # exercise_type : str or exercise_type_id (will need to pick one)
-        # duration : int
-        # time_unit : str
-        # Source: https://stackoverflow.com/questions/45111538/javascript-how-to-build-a-checkbox-list-that-returns
-        # -the-values-which-have-been
-        # goals : list/array of strings
-        # badges : str or int for badge_ID
-        # description : str
-        # tags : list/array of strings
         new_challenges.update({"name": content["name"], "exercise_type": content["exercise_type"],
                                "duration": int(content["duration"]), "time_unit": int(content["time_unit"]),
                                "goals": content["goals"], "badges": content["badges"], "description": content[
@@ -488,8 +370,8 @@ def challenges_get_put_delete(cid):
         return res
 
 
-@bp.route('/<cid>/users', methods=['GET'])
-def get_reservations(cid):
+@bp.route('/<cid>/users/<uid>', methods=['GET'])
+def get_reservations(cid, uid):
     if 'application/json' not in request.accept_mimetypes:
         # Checks if client accepts json, if not return 406
         err = {"Error": "The request header ‘Accept' is not application/json"}
@@ -499,11 +381,6 @@ def get_reservations(cid):
         return res
 
     if request.method == 'GET':
-        # Checks if JWT was provided in Authorization header
-        # sub = check_jwt(request.headers)
-        #
-        # if not isinstance(sub, str):
-        #     return sub
 
         challenge_key = client.key(constants.challenges, int(cid))
         challenge = client.get(key=challenge_key)
