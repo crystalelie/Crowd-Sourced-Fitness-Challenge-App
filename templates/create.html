@@ -19,14 +19,13 @@
             <a href="/" class="active">Log Out</a>
           </div>
           <div class="navItem">
-            <a  class="active">View Challenges</a>
+            <a href="/challenges/{{ user_name["id"] }}" class="active">View Challenges</a>
           </div>
           <div class="navItem">
-            <a  class="active">Create Challenge</a>
+            <a href="/home/{{ user_name["id"]}}/challenge" class="active">Create Challenge</a>
           </div>
-{#            Change the following href so that it is /home/{{ user_name["id"] }}#}
-          <div class="active-page">
-            <a class="active">Profile</a>
+          <div class="navItem">
+            <a  href="/home/{{ user_name["id"] }}" class="active">Profile</a>
           </div>
         </div>
       </div>
@@ -47,9 +46,9 @@
             <label>Exercise Type:</label>
             <br>
             <input list="exercise_type" name="exercise_type" required />
-            <datalist id="exercise_type" name="exercise_type">
+            <datalist id="exercise_type">
               {% for row in exercises['exercises'] %}
-                    <option value={{ row['name'] }}> {{ row['name'] }} </option>
+                  <option data-value={{ row['name'] }}> {{ row['name'] }} </option>
               {% endfor %}
             </datalist>
             <br>
