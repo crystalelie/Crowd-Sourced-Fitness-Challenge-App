@@ -2,19 +2,39 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-{#    <link rel="stylesheet" href="{{ url_for('static', filename= '')}}" type="text/css">#}
-    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/index.css')}}" type="text/css">
-
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/template.css')}}" type="text/css">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/create.css')}}" type="text/css">
 
   </head>
   <body>
 
-    <div class="header">
-      <h1>Create a Challenge</h1>
-    </div>
+<div class="container">
+      <div class="main">
+        <div class="header">
+          <h1>Fit Challenges</h1>
+        </div>
 
-                    <th>Goals</th>
-                    <th>Tags</th>
+        <div class="menu">
+          <div class="navItem">
+            <a href="/" class="active">Log Out</a>
+          </div>
+          <div class="navItem">
+            <a  class="active">View Challenges</a>
+          </div>
+          <div class="navItem">
+            <a  class="active">Create Challenge</a>
+          </div>
+{#            Change the following href so that it is /home/{{ user_name["id"] }}#}
+          <div class="active-page">
+            <a class="active">Profile</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="create">
+        <div class="subheader">
+          Create a Challenge
+        </div>
 
       <div class="create-challenge">        
         <form method="POST">
