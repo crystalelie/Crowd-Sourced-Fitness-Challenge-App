@@ -41,7 +41,7 @@ def home(uid):
                 pass
             else:
                 # Query for all challenges -- Active, Favorite and Completed
-                pass
+                pass 
 
         # code to get # of challenges completed for the user badges, send to userhome.hmtl as 'challenges_completed'
         challenges_completed = 0
