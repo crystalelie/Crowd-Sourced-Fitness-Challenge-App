@@ -108,22 +108,59 @@
           </div>
         </div>
 
+        <br>
         <div class="item">
-          <b>Badges</b>
+          <a href="/badges/{{user_name["id"]}}">Badges</a>
 
-          <!--Make this section loop to look through the database and create
-          each block depending on how many badges the user has-->
+          {% if challenges_completed <= 0:%}
+          <p>You haven't earned any badges yet!</p>
+        {%endif%}
+
+          {% if challenges_completed >= 1:%}
+            <div class="badge">
+              <div class="badge-image">
+                <img width = 45 height = 45 src="../static/images/badges/first.jpg">
+              </div> 
+              <div class="badge-name">Finished 1st Challenge!</div>
+            </div>
+          {%endif%}
+
+          {% if challenges_completed >= 3:%}
           <div class="badge">
-            <div class="block1">
-              <div class="badge-image"></div> <!-- Should include the challenge image -->
-              <div class="badge-name">Badge Name</div>
-            </div>
+            <div class="badge-image">
+              <img width = 45 height = 45 src="../static/images/badges/third.jpg">
+            </div> 
+            <div class="badge-name">Finished 3rd Challenge!</div>
+          </div>          
+        {%endif%}
 
-            <div class="block1">
-              <div class="badge-image"></div> <!-- Should include the challenge image -->
-              <div class="badge-name">Badge Name</div>
-            </div>
-          </div>
+        {% if challenges_completed >= 5:%}
+        <div class="badge">
+          <div class="badge-image">
+            <img width = 45 height = 45 src="../static/images/badges/fifth.jpg">
+          </div> 
+          <div class="badge-name">Finished 5th Challenge!</div>
+        </div>          
+      {%endif%}
+
+      {% if challenges_completed >= 10:%}
+      <div class="badge">
+        <div class="badge-image">
+          <img width = 45 height = 45 src="../static/images/badges/tenth.jpg">
+        </div> 
+        <div class="badge-name">Finished 10th Challenge!</div>
+      </div>          
+    {%endif%}
+
+    {% if challenges_completed >= 15:%}
+    <div class="badge">
+      <div class="badge-image">
+        <img width = 45 height = 45 src="../static/images/badges/fifteenth.jpg">
+      </div> 
+      <div class="badge-name">Finished 15th Challenge!</div>
+    </div>          
+  {%endif%}
+
         </div>
         
 

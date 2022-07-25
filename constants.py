@@ -3,6 +3,7 @@ challenges = "challenges"
 tags = 'tags'
 exercises = 'exercises'
 users = 'users'
+user_account = 'user_account'
 oauth_endpoint = 'https://accounts.google.com/o/oauth2/v2/auth'
 client_id = '1030475966004-mmd290ta8b3sur3ufa3vuh82pqldcr09.apps.googleusercontent.com'
 secret = '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'
