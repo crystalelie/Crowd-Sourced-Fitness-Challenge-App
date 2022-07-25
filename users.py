@@ -131,8 +131,13 @@ def create_challenge(uid):
         return redirect(url)
 
     elif request.method == "GET":
+
+        query = client.key(constants.users, int(uid))
+        users = client.get(key=query)
+        user_name = {"id": users.id, "name": str(users["first_name"] + " " + users["last_name"])}
+
         url = url_for("exercises.exercises_post_get", _external=True)
         r = requests.get(url)
         exercises = r.json()
 
-        return render_template("create.html", exercises=exercises)
+        return render_template("create.html", exercises=exercises, user_name=user_name)

@@ -19,6 +19,10 @@ def challenges_get(uid):
 
     if request.method == 'GET':
 
+        query = client.key(constants.users, int(uid))
+        users = client.get(key=query)
+        user_name = {"id": users.id, "name": str(users["first_name"] + " " + users["last_name"])}
+
         if ('*/*' or 'application/json') not in request.accept_mimetypes:
             # Checks if client accepts json, if not return 406
             err = json.dumps({"Error 406": "The request header ‘Accept' is not application/json"})
@@ -54,7 +58,7 @@ def challenges_get(uid):
         if next_url:
             output["next"] = next_url
 
-        res = make_response(render_template("participate.html", content=output))
+        res = make_response(render_template("participate.html", content=output, user_name=user_name))
         res.headers.set('Content-Type', 'text/html')
         res.status_code = 200
         return res
