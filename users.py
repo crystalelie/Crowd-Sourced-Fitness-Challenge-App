@@ -41,9 +41,17 @@ def home(uid):
                 pass
             else:
                 # Query for all challenges -- Active, Favorite and Completed
-                pass
+                pass 
 
-        res = make_response(render_template('userhome.html', user_name=user_name))
+        # code to get # of challenges completed for the user badges, send to userhome.hmtl as 'challenges_completed'
+        challenges_completed = 0
+        query = client.query(kind=constants.user_account)
+        user_accounts = list(query.fetch())
+        for accounts in user_accounts:
+            if str(uid) == str(accounts["user"].id) and accounts["Completed"] == True:
+                challenges_completed += 1
+
+        res = make_response(render_template('userhome.html', user_name=user_name, challenges_completed=challenges_completed))
         res.headers.set('Content-Type', 'text/html')
         res.status_code = 200
         return res
