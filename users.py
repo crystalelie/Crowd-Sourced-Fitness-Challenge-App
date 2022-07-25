@@ -48,11 +48,18 @@ def home(uid):
         query = client.query(kind=constants.user_account)
         user_accounts = list(query.fetch())
         for accounts in user_accounts:
+<<<<<<< HEAD
             if str(uid) == str(accounts["user"].id) and accounts["Completed"] is True:
                 challenges_completed += 1
 
         res = make_response(
             render_template('userhome.html', user_name=user_name, challenges_completed=challenges_completed))
+=======
+            if str(uid) == str(accounts["user"].id) and accounts["Completed"] == True:
+                challenges_completed += 1
+
+        res = make_response(render_template('userhome.html', user_name=user_name, challenges_completed=challenges_completed))
+>>>>>>> b8b1887 (badges are now displaying on userhome, and the badge hall of fame is functioning. I changed things only pertaining to badges. I am using the user_account entity, so if we change the way that entity works I'll have to change my logic.)
         res.headers.set('Content-Type', 'text/html')
         res.status_code = 200
         return res

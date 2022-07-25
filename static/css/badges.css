@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 
   img {
@@ -7,4 +8,48 @@
   p{
     text-align: center;
     width: 250px;
+=======
+.create {
+    margin-top: 30px;
+    bottom:0;
+    text-align: center;
+}
+
+.subheader {
+    font-size:50px;
+    padding-bottom: 20px;
+}
+
+/* Referenced https://www.w3schools.com/css/tryit.asp?filename=trycss_forms*/
+input[type=text], select, input[list], input[type=number] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+
+  input[type=submit] {
+    width: 100%;
+    background-color: #2974e4;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  input[type=submit]:hover {
+    background-color: #2974e4
+  }
+
+  form {
+      width: 50%;
+      display: inline-block;
+      text-align: left;
+>>>>>>> b8b1887 (badges are now displaying on userhome, and the badge hall of fame is functioning. I changed things only pertaining to badges. I am using the user_account entity, so if we change the way that entity works I'll have to change my logic.)
   }

@@ -73,8 +73,15 @@ a.badges-title{
     width:100%;
 }
 
+<<<<<<< HEAD
 .badge-image {
     padding: 0px 20px 15px 20px;
+=======
+img .badge-image {
+    background-color:#2974e4; 
+    height:20px; 
+    width:20px
+>>>>>>> b8b1887 (badges are now displaying on userhome, and the badge hall of fame is functioning. I changed things only pertaining to badges. I am using the user_account entity, so if we change the way that entity works I'll have to change my logic.)
 }
 
 .badge-name {
