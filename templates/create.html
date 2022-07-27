@@ -77,8 +77,14 @@
           <input type="text" name="goals[]">
             <br>
             <br>
-            <label for="tags">Tags:</label>
-            <input type="text" name="tags" required>
+            <label>Tags:</label>
+            <br>
+            <input list="tags" name="tags" required />
+            <datalist id="tags">
+              {% for row in tags['tags'] %}
+                  <option data-value={{ row['name'] }}> {{ row['name'] }} </option>
+              {% endfor %}
+            </datalist>
             <br>
             <br>
             <input type="submit" name='submit' value="Submit">
