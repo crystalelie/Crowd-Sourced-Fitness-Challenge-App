@@ -112,6 +112,21 @@ def create_challenge(uid):
             }
             requests.post(url, json=json.dumps(data))
 
+        exe_flag = False
+        query = client.query(kind=constants.tags)
+        tag_list = list(query.fetch())
+
+        for tag in tag_list:
+            if tag["name"] == content["tags"]:
+                exe_flag = True
+
+        if not exe_flag:
+            url = url_for("tags.tags_post_get", _external=True)
+            data = {
+                "name": content["tags"]
+            }
+            requests.post(url, json=json.dumps(data))
+
         # Name of challenges must be unique
         query = client.query(kind=constants.challenges)
         challenges_list = list(query.fetch())
@@ -148,4 +163,8 @@ def create_challenge(uid):
         r = requests.get(url)
         exercises = r.json()
 
-        return render_template("create.html", exercises=exercises, user_name=user_name)
+        url = url_for("tags.tags_post_get", _external=True)
+        r = requests.get(url)
+        tags = r.json()
+
+        return render_template("create.html", exercises=exercises, user_name=user_name, tags=tags)
