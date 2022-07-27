@@ -51,4 +51,5 @@ def signup_post():
     "password": hash_pw, "email": email})
     client.put(new_user)
 
+    flash('Account successfully created! Please log in.')
     return redirect(url_for('index'))
