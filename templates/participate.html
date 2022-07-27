@@ -2,52 +2,74 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename= '')}}" type="text/css">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/template.css')}}" type="text/css">
+      <link rel="stylesheet" href="{{ url_for('static', filename= 'css/participate.css')}}" type="text/css">
+
 
   </head>
   <body>
 
-    <div class="header">
-      <h1>Participate in a Challenge</h1>
-    </div>
+  <div class="container">
+      <div class="main">
+        <div class="header">
+          <h1>Fit Challenges</h1>
+        </div>
 
+        <div class="menu">
+          <div class="navItem">
+            <a href="/" class="active">Log Out</a>
+          </div>
+          <div class="navItem">
+            <a href="/challenges/{{ user_name["id"] }}" class="active">View Challenges</a>
+          </div>
+          <div class="navItem">
+            <a href="/home/{{user_name["id"]}}/challenge" class="active">Create Challenge</a>
+          </div>
+          <div class="navItem">
+            <a href="/home/{{ user_name["id"] }}" class="active">Profile</a>
+          </div>
+        </div>
+      </div>
 
-        <h2 class="page-title">Search for Challenges by Tag</h2>
+      <div class="home">
+        <div class="subheader">
+          Participate in a Challenge
+        </div>
+      </div>
 
-    <div>
-        <form action="/challenges/search>" method="GET">
-            <input class="search-med" type="text" placeholder="Enter tag " required/>
-        </form>
-    </div>
+      <div class="float-container">
+        <div class="forms">
+            <h2>Search for Challenges by Tag</h2>
 
+            <form action="/challenges/search>" method="GET">
+                <input class="search-med" type="text" placeholder="Enter tag " required/>
+                <button id="search-button1" type="submit" value="Submit">
+                    Search
+                </button>
+            </form>
+        </div>
 
-    <h2 class="page-title">Search Challenge by exercise type</h2>
+        <div class="forms">
+            <h2>Search for Challenges by Exercise</h2>
 
-
-    <div>
-        <form action="/challenges/search>" method="GET">
-            <input class="search-med" type="text" placeholder="Enter exercise type " required/>
-
-
-            <button id="search-button" type="submit" value="Submit">
-                Search
-            </button>
-        </form>
-    </div>
+            <form action="/challenges/search>" method="GET">
+                <input class="search-med" type="text" placeholder="Enter exercise type " required/>
+                <button id="search-button" type="submit" value="Submit">
+                    Search
+                </button>
+            </form>
+        </div>
+      </div>
 
     <section>
 
 
         <table id="challenges">
 
-{#        <div>#}
-{#            <h2 class="page-title">List of Available Challenges</h2>#}
-{#        </div>#}
-        <table id="medications">
+        <div>
+            <h2 class="page-title">List of Available Challenges</h2>
+        </div>
 
-            <caption>
-                List of Available Challenges
-            </caption>
             <thead>
                 <tr>
                     <th>Challenge Name</th>
@@ -57,9 +79,9 @@
                     <th>Unit of Time</th>
                     <th>Goals</th>
                     <th>Tags</th>
-                    <th>Participate</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -90,11 +112,12 @@
                             <button class="alt-button" type="submit"
                                 >Delete</button>
                 </tr>
-                {% endfor %}
+            {% endfor %}
             </tbody>
         </table>
     </section>
     <br>
+  </div>
 
 
 
