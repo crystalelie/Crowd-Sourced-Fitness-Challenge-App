@@ -4,6 +4,7 @@ import users
 import challenges
 import exercises
 import auth
+import tags
 
 app = Flask(__name__)
 
@@ -14,6 +15,7 @@ app.register_blueprint(users.bp)
 app.register_blueprint(badges.bp)
 app.register_blueprint(exercises.bp)
 app.register_blueprint(auth.auth)
+app.register_blueprint(tags.bp)
 
 
 @app.route('/')
