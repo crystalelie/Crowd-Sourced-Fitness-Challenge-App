@@ -51,15 +51,28 @@
 }
 
 .badge {
-    float:center;
+    padding-top:15px;
+    padding-bottom:0;
+    padding-left: 30px;
+    display: inline-block;
 }
 
-img .badge-image {
-    background-color:#2974e4; 
-    height:20px; 
-    width:20px
+a.badges-title{
+    text-align: left;
+    padding:0px;
+    padding:20px;
+    float:left;
+    width:100%;
+}
+
+.badge-image {
+    padding: 0px 20px 15px 20px;
 }
 
 .badge-name {
     font-size:25px;
+    height: 100px;
+    width: 140px;
+    float: center;
+    text-align: center;
 }
