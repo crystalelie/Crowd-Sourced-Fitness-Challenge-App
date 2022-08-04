@@ -2,19 +2,38 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-{#    <link rel="stylesheet" href="{{ url_for('static', filename= '')}}" type="text/css">#}
-    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/index.css')}}" type="text/css">
-
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/template.css')}}" type="text/css">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/create.css')}}" type="text/css">
 
   </head>
   <body>
 
-    <div class="header">
-      <h1>Create a Challenge</h1>
-    </div>
+<div class="container">
+      <div class="main">
+        <div class="header">
+          <h1>Fit Challenges</h1>
+        </div>
 
-                    <th>Goals</th>
-                    <th>Tags</th>
+        <div class="menu">
+          <div class="navItem">
+            <a href="/" class="active">Log Out</a>
+          </div>
+          <div class="navItem">
+            <a href="/challenges/{{ user_name["id"] }}" class="active">View Challenges</a>
+          </div>
+          <div class="navItem">
+            <a href="/home/{{ user_name["id"]}}/challenge" class="active">Create Challenge</a>
+          </div>
+          <div class="navItem">
+            <a  href="/home/{{ user_name["id"] }}" class="active">Profile</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="create">
+        <div class="subheader">
+          Create a Challenge
+        </div>
 
       <div class="create-challenge">        
         <form method="POST">
@@ -27,9 +46,9 @@
             <label>Exercise Type:</label>
             <br>
             <input list="exercise_type" name="exercise_type" required />
-            <datalist id="exercise_type" name="exercise_type">
+            <datalist id="exercise_type">
               {% for row in exercises['exercises'] %}
-                    <option value={{ row['name'] }}> {{ row['name'] }} </option>
+                  <option data-value={{ row['name'] }}> {{ row['name'] }} </option>
               {% endfor %}
             </datalist>
             <br>
@@ -58,8 +77,14 @@
           <input type="text" name="goals[]">
             <br>
             <br>
-            <label for="tags">Tags:</label>
-            <input type="text" name="tags" required>
+            <label>Tags:</label>
+            <br>
+            <input list="tags" name="tags" required />
+            <datalist id="tags">
+              {% for row in tags['tags'] %}
+                  <option data-value={{ row['name'] }}> {{ row['name'] }} </option>
+              {% endfor %}
+            </datalist>
             <br>
             <br>
             <input type="submit" name='submit' value="Submit">

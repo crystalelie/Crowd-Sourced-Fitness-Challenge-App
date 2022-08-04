@@ -54,13 +54,12 @@
     float:center;
 }
 
-.badge-image {
+img .badge-image {
     background-color:#2974e4; 
-    height:200px; 
-    width:200px
+    height:20px; 
+    width:20px
 }
 
 .badge-name {
     font-size:25px;
 }
-  

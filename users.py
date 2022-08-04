@@ -41,9 +41,17 @@ def home(uid):
                 pass
             else:
                 # Query for all challenges -- Active, Favorite and Completed
-                pass
+                pass 
 
-        res = make_response(render_template('userhome.html', user_name=user_name))
+        # code to get # of challenges completed for the user badges, send to userhome.hmtl as 'challenges_completed'
+        challenges_completed = 0
+        query = client.query(kind=constants.user_account)
+        user_accounts = list(query.fetch())
+        for accounts in user_accounts:
+            if str(uid) == str(accounts["user"].id) and accounts["Completed"] == True:
+                challenges_completed += 1
+
+        res = make_response(render_template('userhome.html', user_name=user_name, challenges_completed=challenges_completed))
         res.headers.set('Content-Type', 'text/html')
         res.status_code = 200
         return res
@@ -104,6 +112,21 @@ def create_challenge(uid):
             }
             requests.post(url, json=json.dumps(data))
 
+        exe_flag = False
+        query = client.query(kind=constants.tags)
+        tag_list = list(query.fetch())
+
+        for tag in tag_list:
+            if tag["name"] == content["tags"]:
+                exe_flag = True
+
+        if not exe_flag:
+            url = url_for("tags.tags_post_get", _external=True)
+            data = {
+                "name": content["tags"]
+            }
+            requests.post(url, json=json.dumps(data))
+
         # Name of challenges must be unique
         query = client.query(kind=constants.challenges)
         challenges_list = list(query.fetch())
@@ -131,8 +154,17 @@ def create_challenge(uid):
         return redirect(url)
 
     elif request.method == "GET":
+
+        query = client.key(constants.users, int(uid))
+        users = client.get(key=query)
+        user_name = {"id": users.id, "name": str(users["first_name"] + " " + users["last_name"])}
+
         url = url_for("exercises.exercises_post_get", _external=True)
         r = requests.get(url)
         exercises = r.json()
 
-        return render_template("create.html", exercises=exercises)
+        url = url_for("tags.tags_post_get", _external=True)
+        r = requests.get(url)
+        tags = r.json()
+
+        return render_template("create.html", exercises=exercises, user_name=user_name, tags=tags)

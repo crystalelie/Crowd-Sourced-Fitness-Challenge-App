@@ -6,21 +6,24 @@ client = datastore.Client()
 
 bp = Blueprint('badges', __name__, url_prefix='/badges')
 
+@bp.route('/<uid>', methods=['GET'])
+def get_badges(uid):
 
-@bp.route('', methods=['GET'])
-def name_of_func():
+    query = client.query(kind=constants.users)
+    users = list(query.fetch())
+    query2 = client.query(kind=constants.user_account)
+    user_accounts = list(query2.fetch())
 
-    # test code from sean to create a new badge 
-    # new_badge= datastore.entity.Entity(key=client.key(constants.badges))
-    # new_badge.update({"name": "Testing", "type": "Running"})
-    # client.put(new_badge)
+    badge_dict = {}
+    for user in users:
+        user_name = str(user["first_name"] + " " + user["last_name"])
+        badge_dict[user_name] = 0
+        for accounts in user_accounts:
+            if accounts["user"].id == user.id and accounts["Completed"] == True:
+                badge_dict[user_name] += 1
 
-    query = client.query(kind=constants.badges)
-    badges = list(query.fetch())
-    names = []
-    images = []
-    print(badges)
-    for badge in badges:
-        names.append(badge["name"])
-        images.append(badge["image"])
-    return render_template("badges.html", names=names, images=images)
+    for account in badge_dict.items():
+        if account[1] > 0:
+            print(account[0])
+
+    return render_template("badges.html", badge_dict = badge_dict, uid=uid)
