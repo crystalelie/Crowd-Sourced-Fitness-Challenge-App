@@ -4,6 +4,14 @@
     text-align: center;
 }
 
+h1, .menu, .active {
+    color: white;
+}
+
+h2, .subheader, input, label, option, select, datalist {
+    color: #2974e4;
+}
+
 .subheader {
     font-size:50px;
     padding-bottom: 20px;

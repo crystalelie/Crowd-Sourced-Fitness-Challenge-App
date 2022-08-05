@@ -4,6 +4,14 @@
     bottom:0;
 }
 
+h1, .menu.active {
+    color: white;
+}
+
+h2, .subheader, b {
+    color: #2974e4;
+}
+
 .userhome {
     font-size: 30px;
     text-align: center;

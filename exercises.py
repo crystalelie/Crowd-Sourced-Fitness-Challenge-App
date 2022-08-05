@@ -27,7 +27,6 @@ def exercises_post_get():
 
     elif request.method == 'POST':
         content = json.loads(request.get_json())
-        print(content)
         new_exercise = datastore.entity.Entity(key=client.key(constants.exercises))
         new_exercise.update({"name": content["name"]})
         client.put(new_exercise)

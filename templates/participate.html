@@ -20,16 +20,29 @@
             <a href="/" class="active">Log Out</a>
           </div>
           <div class="navItem">
-            <a href="/challenges/{{ user_name["id"] }}" class="active">View Challenges</a>
+            <a href="/challenges/{{content["id"]}}" class="active">View Challenges</a>
           </div>
           <div class="navItem">
-            <a href="/home/{{user_name["id"]}}/challenge" class="active">Create Challenge</a>
+            <a href="/home/{{content["id"]}}/challenge" class="active">Create Challenge</a>
           </div>
           <div class="navItem">
-            <a href="/home/{{ user_name["id"] }}" class="active">Profile</a>
+            <a href="/home/{{content["id"]}}" class="active">Profile</a>
           </div>
         </div>
       </div>
+
+
+  {% block content %}
+    <div>
+        {% for message in get_flashed_messages() %}
+        <div>
+            <p class="flash_message">{{ message }}</p>
+        </div>
+        {% endfor %}
+
+{#        {% block page_content %}{% endblock %}#}
+    </div>
+    {% endblock %}
 
       <div class="home">
         <div class="subheader">
@@ -41,25 +54,31 @@
         <div class="forms">
             <h2>Search for Challenges by Tag</h2>
 
-            <form action="/challenges/search>" method="GET">
-                <input class="search-med" type="text" placeholder="Enter tag " required/>
-                <button id="search-button1" type="submit" value="Submit">
-                    Search
-                </button>
-            </form>
-        </div>
-
-        <div class="forms">
-            <h2>Search for Challenges by Exercise</h2>
-
-            <form action="/challenges/search>" method="GET">
-                <input class="search-med" type="text" placeholder="Enter exercise type " required/>
-                <button id="search-button" type="submit" value="Submit">
+            <form action="/challenges/search" method="POST">
+                <input name="tag" type="text" placeholder="Enter tag " required/>
+                <input name="user_id" type="hidden"  value="{{content["id"]}}" required/>
+                <button id="search-button1" type="submit">
                     Search
                 </button>
             </form>
         </div>
       </div>
+
+
+      <br>
+      <br>
+
+{#        <div class="forms">#}
+{#            <h2>Search for Challenges by Exercise</h2>#}
+{##}
+{#            <form action="challenges/search>" method="GET">#}
+{#                <input class="search-med" type="text" placeholder="Enter exercise type " required/>#}
+{#                <button id="search-button" type="submit" value="Submit">#}
+{#                    Search#}
+{#                </button>#}
+{#            </form>#}
+{#        </div>#}
+{#      </div>#}
 
     <section>
 
@@ -81,7 +100,7 @@
                     <th>Tags</th>
                     <th></th>
                     <th></th>
-                    <th></th>
+{#                    <th></th>#}
                 </tr>
             </thead>
             <tbody>
@@ -97,20 +116,25 @@
                     <td>{{row['tags']}}</td>
                     <td>
 
-                        <form action="/challenges/{{row['id']}}/user/{{ content['user'] }}" method="PUT">
-                            <button class="alt-button" type="submit">Participate</button>
+                        <form action="/home/{{ content['user'] }}/challenges/{{row['id']}}" method="POST">
+                            <input type="hidden" name="_METHOD" value="PUT"/>
+                            <button class="alt-button" type="submit">Join/Leave</button>
                         </form>
                     </td>
+
+{#                    Do an if/else for this button. If valid, show, if not, hide#}
+
                     <td>
-                        <form action="/challenges/{{row['id']}}/user/{{ content['user'] }}" method="PATCH">
+                        <form action="/home/{{ content['user'] }}/challenges/{{row['id']}}" method="GET">
                             <button class="alt-button" type="submit"
                                 >Edit</button>
                         </form>
                     </td>
-                    <td>
-                        <form action="/challenges/{{row['id']}}/user/{{ content['user'] }}" method="DELETE">
-                            <button class="alt-button" type="submit"
-                                >Delete</button>
+{#                    <td>#}
+{#                        <form action="/challenges/{{row['id']}}/user/{{ content['user'] }}" method="DELETE">#}
+{#                            <button class="alt-button" type="submit"#}
+{#                                >Delete</button>#}
+{#                    </td>#}
                 </tr>
             {% endfor %}
             </tbody>
@@ -118,7 +142,24 @@
     </section>
     <br>
   </div>
+  <br>
 
+  {% if content['previous'] or content['next'] %}
+  <div>
+  <a href="{{ content['previous'] }}" class="active">
+                            <button>Previous Page</button>
+      </a>
+      <a href="{{ content['next'] }}" class="active">
+                            <button>Next Page</button>
+      </a>
+  </div>
+
+  {% else %}
+    <a href="/challenges/{{ content['id'] }}" class="active">
+                            <button>Back</button>
+      </a>
+
+  {% endif %}
 
 
   </body>
