@@ -122,8 +122,6 @@
                         </form>
                     </td>
 
-{#                    Do an if/else for this button. If valid, show, if not, hide#}
-
                     {% if row['owner'] == content['id'] %}
                     <td>
                         <form action="/home/{{ content['user'] }}/challenges/{{row['id']}}" method="GET">
