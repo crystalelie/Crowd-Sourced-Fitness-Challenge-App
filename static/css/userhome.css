@@ -34,7 +34,6 @@ h2, .subheader, b {
     padding-left: 30px;
     display: inline-block;
     vertical-align:top;
-
 }
 
 .challenge-name {
@@ -87,4 +86,9 @@ a.badges-title{
     width: 140px;
     float: center;
     text-align: center;
+}
+
+.finish {
+    margin-left: 30px;
+
 }
