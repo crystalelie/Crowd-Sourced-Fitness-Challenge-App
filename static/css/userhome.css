@@ -2,6 +2,8 @@
 .userhome {
     margin-top: 30px;
     bottom:0;
+    font-size: 30px;
+    text-align: center;
 }
 
 h1, .menu.active {
@@ -12,10 +14,6 @@ h2, .subheader, b {
     color: #2974e4;
 }
 
-.userhome {
-    font-size: 30px;
-    text-align: center;
-}
 
 .subheader {
     font-size:50px;
@@ -30,33 +28,33 @@ h2, .subheader, b {
     width:100%;
 }
 
-.block{
+.challenge {
     padding-top:15px;
     padding-bottom:0;
-    float:left;
     padding-left: 30px;
-}
+    display: inline-block;
+    vertical-align:top;
 
-.challenge {
-    float:center;
-}
-
-.challenge-image {
-    background-color:#2974e4; 
-    height:200px; 
-    width:200px
 }
 
 .challenge-name {
     font-size:25px;
+    height: 100px;
+    width: 140px;
+    float: center;
+    text-align: center;
+    vertical-align:top;
 }
 
-.block1{
-    padding-top:15px;
-    padding-bottom:0;
+
+a.challenge-title{
+    text-align: left;
+    padding:0px;
+    padding:20px;
     float:left;
-    padding-left: 30px;
+    width:100%;
 }
+
 
 .badge {
     padding-top:15px;
@@ -71,6 +69,12 @@ a.badges-title{
     padding:20px;
     float:left;
     width:100%;
+}
+
+.challenge-image {
+    padding: 0px 20px 15px 20px;
+    display: inline-block;
+    vertical-align:top;
 }
 
 .badge-image {
