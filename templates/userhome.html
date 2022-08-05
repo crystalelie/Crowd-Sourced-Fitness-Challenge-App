@@ -38,6 +38,7 @@
           Welcome back, {{user_name["name"]}}
         </div>
 
+ {#     Search functionality -- If there's time to add it
         <form style="border:none; outline:0;" method="GET">
           <fieldset>
             <label style="font-size:18pt" for="search">Filter challenges based on keyword:</label>
@@ -47,8 +48,10 @@
 
           </fieldset>
         </form>
+        #}
 
 
+        {# Removing favorites unless there's time to add database functionality
         <div class="item">
           <b>Favorite Challenges</b>
 
@@ -67,48 +70,45 @@
             </div>
           </div>
         </div>
+        #}
 
 
         <div class="item">
           <b>Active Challenges</b>
+            <br>
+            {% if active|length < 1 %}
+              <p>You currently don't have any active challenges!</p>
+            {%endif%}
 
-          <!--Make this section loop to look through the database and create
-          each block depending on how many chalenges are labelled as active-->
-          <div class="challenge">
-            <div class="block">
-              <div class="challenge-image"></div> <!-- Should include the challenge image -->
-              <div class="challenge-name">Challenge Name</div>
-            </div>
-
-            <div class="block">
-              <div class="challenge-image"></div> <!-- Should include the challenge image -->
-              <div class="challenge-name">Challenge Name</div>
-            </div>
-
-            <div class="block">
-              <div class="challenge-image"></div> <!-- Should include the challenge image -->
-              <div class="challenge-name">Challenge Name</div>
-            </div>
-
-          </div>
+            {% if active|length > 0 %}
+                {% for row in active %}
+                     <div class="challenge">
+                          <div class="challenge-image">
+                              <img width = 100 height = 100 src="../static/images/challenges/challenge.png">
+                          </div>
+                          <div class="challenge-name">{{row[1]}}</div>
+                     </div>
+                {% endfor %}
+            {%endif%}
         </div>
 
         <div class="item">
           <b>Completed Challenges</b>
+            <br>
+            {% if completed|length < 1 %}
+              <p>You haven't completed any challenges!</p>
+            {%endif%}
 
-          <!--Make this section loop to look through the database and create
-          each block depending on how many chalenges are labelled as completed-->
-          <div class="challenge">
-            <div class="block">
-              <div class="challenge-image"></div> <!-- Should include the challenge image -->
-              <div class="challenge-name">Challenge Name</div>
-            </div>
-
-            <div class="block">
-              <div class="challenge-image"></div> <!-- Should include the challenge image -->
-              <div class="challenge-name">Challenge Name</div>
-            </div>
-          </div>
+            {% if completed|length > 0 %}
+                {% for row in completed %}
+                     <div class="challenge">
+                          <div class="challenge-image">
+                              <img width = 100 height = 100 src="../static/images/challenges/challenge.png">
+                          </div>
+                          <div class="challenge-name">{{row[1]}}</div>
+                     </div>
+                {% endfor %}
+            {%endif%}
         </div>
 
         <br>
