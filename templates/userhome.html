@@ -19,13 +19,13 @@
             <a href="/" class="active">Log Out</a>
           </div>
           <div class="navItem">
-            <a href="/challenges/{{ user_name["id"] }}" class="active">View Challenges</a>
+            <a href="/challenges/{{user_name["id"]}}" class="active">View Challenges</a>
           </div>
           <div class="navItem">
             <a href="/home/{{user_name["id"]}}/challenge" class="active">Create Challenge</a>
           </div>
 {#            Change the following href so that it is /home/{{ user_name["id"] }}#}
-          <div class="active-page">
+          <div class="navItem">
             <a href="/home/{{ user_name["id"] }}" class="active">Profile</a>
           </div>
         </div>
