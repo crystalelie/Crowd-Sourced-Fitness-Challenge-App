@@ -124,12 +124,16 @@
 
 {#                    Do an if/else for this button. If valid, show, if not, hide#}
 
+                    {% if row['owner'] == content['id'] %}
                     <td>
                         <form action="/home/{{ content['user'] }}/challenges/{{row['id']}}" method="GET">
                             <button class="alt-button" type="submit"
                                 >Edit</button>
                         </form>
                     </td>
+
+                    {% endif %}
+
 {#                    <td>#}
 {#                        <form action="/challenges/{{row['id']}}/user/{{ content['user'] }}" method="DELETE">#}
 {#                            <button class="alt-button" type="submit"#}
