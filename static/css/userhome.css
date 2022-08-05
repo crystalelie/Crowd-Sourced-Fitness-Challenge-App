@@ -74,6 +74,7 @@ a.badges-title{
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 .badge-image {
     padding: 0px 20px 15px 20px;
 =======
@@ -82,6 +83,10 @@ img .badge-image {
     height:20px; 
     width:20px
 >>>>>>> b8b1887 (badges are now displaying on userhome, and the badge hall of fame is functioning. I changed things only pertaining to badges. I am using the user_account entity, so if we change the way that entity works I'll have to change my logic.)
+=======
+.badge-image {
+    padding: 0px 20px 15px 20px;
+>>>>>>> 492a423328904bd8b3589dc9dabf9a854c4d313b
 }
 
 .badge-name {
