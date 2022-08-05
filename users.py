@@ -17,6 +17,8 @@ bp = Blueprint('users', __name__, template_folder='templates', static_folder='st
 @bp.route('/<uid>', methods=['POST', 'GET'])
 def home(uid):
     # user_id = request.args.get("id")
+    active = []
+    completed = []
 
     # Checks if user with user_id exists
     query = client.key(constants.users, int(uid))
@@ -43,6 +45,29 @@ def home(uid):
                 # Query for all challenges -- Active, Favorite and Completed
                 pass
 
+        if not request.args.get('search'):
+            # Query for all challenges -- Active & Completed
+
+            query = client.query(kind=constants.user_account)
+            user_accounts = list(query.fetch())
+
+            query = client.query(kind=constants.challenges)
+            challenges = list(query.fetch())
+
+        # Not ideal, but will refactor if time
+            for accounts in user_accounts:
+                if str(uid) == str(accounts["user"].id) and accounts["Completed"] is True:
+                    for x in challenges:
+                        if x.id == accounts["challenge"].id:
+                            completed.append((x.id, x["name"]))
+                            break
+
+                elif str(uid) == str(accounts["user"].id) and accounts["Active"] is True:
+                    for x in challenges:
+                        if x.id == accounts["challenge"].id:
+                            completed.append(x["name"])
+                            break
+
         # code to get # of challenges completed for the user badges, send to userhome.hmtl as 'challenges_completed'
         challenges_completed = 0
         query = client.query(kind=constants.user_account)
@@ -52,14 +77,10 @@ def home(uid):
                 challenges_completed += 1
 
         res = make_response(
-            render_template('userhome.html', user_name=user_name, challenges_completed=challenges_completed))
+            render_template('userhome.html', user_name=user_name, challenges_completed=challenges_completed, completed=completed, active=active))
         res.headers.set('Content-Type', 'text/html')
         res.status_code = 200
         return res
-
-    if not request.args.get('search'):
-        # Query for all challenges -- Active, Favorite and Completed
-        pass
 
     else:
         # Status code 405
