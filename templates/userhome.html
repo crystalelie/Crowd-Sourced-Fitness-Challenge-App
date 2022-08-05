@@ -110,8 +110,9 @@
         </div>
 
         <br>
+
         <div class="item">
-          <a href="/badges/{{user_name["id"]}}">Badges</a>
+          <a class="badges-title"href="/badges/{{user_name["id"]}}">Badges</a>
 
           {% if challenges_completed <= 0:%}
           <p>You haven't earned any badges yet!</p>
@@ -120,7 +121,7 @@
           {% if challenges_completed >= 1:%}
             <div class="badge">
               <div class="badge-image">
-                <img width = 45 height = 45 src="../static/images/badges/first.jpg">
+                <img width = 100 height = 100 src="../static/images/badges/first.jpg">
               </div> 
               <div class="badge-name">Finished 1st Challenge!</div>
             </div>
@@ -129,7 +130,7 @@
           {% if challenges_completed >= 3:%}
           <div class="badge">
             <div class="badge-image">
-              <img width = 45 height = 45 src="../static/images/badges/third.jpg">
+              <img width = 100 height = 100 src="../static/images/badges/third.jpg">
             </div> 
             <div class="badge-name">Finished 3rd Challenge!</div>
           </div>          
@@ -138,7 +139,7 @@
         {% if challenges_completed >= 5:%}
         <div class="badge">
           <div class="badge-image">
-            <img width = 45 height = 45 src="../static/images/badges/fifth.jpg">
+            <img width = 100 height = 100 src="../static/images/badges/fifth.jpg">
           </div> 
           <div class="badge-name">Finished 5th Challenge!</div>
         </div>          
@@ -147,7 +148,7 @@
       {% if challenges_completed >= 10:%}
       <div class="badge">
         <div class="badge-image">
-          <img width = 45 height = 45 src="../static/images/badges/tenth.jpg">
+          <img width = 100 height = 100 src="../static/images/badges/tenth.jpg">
         </div> 
         <div class="badge-name">Finished 10th Challenge!</div>
       </div>          
@@ -156,7 +157,7 @@
     {% if challenges_completed >= 15:%}
     <div class="badge">
       <div class="badge-image">
-        <img width = 45 height = 45 src="../static/images/badges/fifteenth.jpg">
+        <img width = 100 height = 100 src="../static/images/badges/fifteenth.jpg">
       </div> 
       <div class="badge-name">Finished 15th Challenge!</div>
     </div>          
