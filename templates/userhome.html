@@ -87,6 +87,13 @@
                               <img width = 100 height = 100 src="../static/images/challenges/challenge.png">
                           </div>
                           <div class="challenge-name">{{row[1]}}</div>
+
+                             <form action="/home/{{ user_name["id"] }}" method="POST">
+
+                                <input type="hidden" name='_METHOD' value="finish">
+                                <button class="finish" type="submit">Complete</button>
+
+                             </form>
                      </div>
                 {% endfor %}
             {%endif%}
