@@ -5,7 +5,7 @@ html {
 .main {
     overflow: hidden;
     background-color:#2974e4;
-    color: black;
+    color: white;
     padding: 10px;
     top:0;
 }
@@ -55,7 +55,7 @@ html {
 }
 
 .active {
-    color:black;
+    color:white;
     text-decoration: none;
 }
 
