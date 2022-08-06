@@ -1,4 +1,4 @@
-.create {
+.badges {
     margin-top: 30px;
     bottom:0;
     text-align: center;
@@ -6,6 +6,7 @@
 
 .subheader {
     font-size:50px;
+    color: #2974e4;
     padding-bottom: 20px;
 }
 

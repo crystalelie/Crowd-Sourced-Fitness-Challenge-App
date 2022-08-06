@@ -20,6 +20,9 @@
             <a href="/" class="active">Log Out</a>
           </div>
           <div class="navItem">
+            <a href="/badges/{{content["id"]}}" class="active">Wall of Fame</a>
+          </div>
+          <div class="navItem">
             <a href="/challenges/{{content["id"]}}" class="active">View Challenges</a>
           </div>
           <div class="navItem">
@@ -147,7 +150,7 @@
   <br>
 
   {% if content['previous'] or content['next'] %}
-  <div>
+  <div class="buttons">
   <a href="{{ content['previous'] }}" class="active">
                             <button>Previous Page</button>
       </a>
@@ -157,10 +160,11 @@
   </div>
 
   {% else %}
+    <div class="buttons">
     <a href="/challenges/{{ content['id'] }}" class="active">
                             <button>Back</button>
       </a>
-
+    </div>
   {% endif %}
 
 
