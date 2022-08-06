@@ -21,6 +21,7 @@ def home(uid):
     completed = []
     url = request.root_url + "home/" + uid
     method = request.form.to_dict()
+    challenges_completed = 0
 
     # Checks if user with user_id exists
     query = client.key(constants.users, int(uid))
@@ -48,35 +49,26 @@ def home(uid):
                 pass
 
         if not request.args.get('search'):
-            # Query for all challenges -- Active & Completed
-
-            query = client.query(kind=constants.user_account)
-            user_accounts = list(query.fetch())
-
             query = client.query(kind=constants.challenges)
             challenges = list(query.fetch())
 
-        # Not ideal, but will refactor if time
-            for accounts in user_accounts:
-                if str(uid) == str(accounts["user"].id) and accounts["Active"] == True:
+            user_key = client.key(constants.users, int(uid))
+            user = client.get(key=user_key)
+
+            for each in user["challenges"]:
+                # Looping for active challenges
+                if each["completed"] is False:
                     for x in challenges:
-                        if x.id == accounts["challenge"].id:
+                        if str(x.id) == str(each["challenge_id"]):
                             active.append((x.id, x["name"]))
                             break
 
-                elif str(uid) == str(accounts["user"].id) and accounts["Completed"] == True:
+                # Looping for completed challenges
+                if each["completed"] is True:
                     for x in challenges:
-                        if x.id == accounts["challenge"].id:
+                        if str(x.id) == str(each["challenge_id"]):
                             completed.append((x.id, x["name"]))
-                            break
-
-            # code to get # of challenges completed for the user badges, send to userhome.hmtl as 'challenges_completed'
-            challenges_completed = 0
-            query = client.query(kind=constants.user_account)
-            user_accounts = list(query.fetch())
-            for accounts in user_accounts:
-                if str(uid) == str(accounts["user"].id) and accounts["Completed"] is True:
-                    challenges_completed += 1
+                            challenges_completed += 1
 
             res = make_response(
                 render_template('userhome.html', user_name=user_name, challenges_completed=challenges_completed, completed=completed, active=active))
@@ -84,15 +76,20 @@ def home(uid):
             res.status_code = 200
             return res
 
-    elif method["_METHOD"] == "finish":
-        query = client.query(kind=constants.user_account)
-        user_accounts = list(query.fetch())
-        for accounts in user_accounts:
-            if str(uid) == str(accounts["user"].id):
-                accounts["Completed"] = True
-                accounts["Active"] = False
-                client.put(accounts)
-                break
+    if request.method == "POST":
+        cid = str(request.form['id'])
+        user_key = client.key(constants.users, int(uid))
+        user = client.get(key=user_key)
+
+        ind = 0
+        for challenge_id in user["challenges"]:
+            if challenge_id['challenge_id'] == cid:
+                del user["challenges"][ind]
+                client.put(user)
+                user["challenges"].append({"challenge_id": cid, "completed": True})
+                client.put(user)
+            ind += 1
+
         return redirect(url)
 
     else:
@@ -248,7 +245,6 @@ def get_reservations(cid, uid):
         return render_template("edit.html", exercises=exercises, user_name=user_name, tags=tags, content=challenge)
 
     elif method["_METHOD"] == "PUT":
-
         user_key = client.key(constants.users, int(uid))
         user = client.get(key=user_key)
 

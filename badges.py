@@ -11,16 +11,20 @@ def get_badges(uid):
 
     query = client.query(kind=constants.users)
     users = list(query.fetch())
-    query2 = client.query(kind=constants.user_account)
-    user_accounts = list(query2.fetch())
+
+    query1 = client.query(kind=constants.challenges)
+    challenges = list(query1.fetch())
 
     badge_dict = {}
     for user in users:
         user_name = str(user["first_name"] + " " + user["last_name"])
         badge_dict[user_name] = 0
-        for accounts in user_accounts:
-            if accounts["user"].id == user.id and accounts["Completed"] == True:
-                badge_dict[user_name] += 1
+
+        for each in user["challenges"]:
+            if each["completed"] is True:
+                for x in challenges:
+                    if str(x.id) == str(each["challenge_id"]):
+                        badge_dict[user_name] += 1
 
     for account in badge_dict.items():
         if account[1] > 0:
