@@ -111,5 +111,3 @@ def challenge_search():
         res.headers.set('Content-Type', 'text/html')
         res.status_code = 405
         return res
-
-
