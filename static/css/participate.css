@@ -43,6 +43,14 @@ th {
     text-align: center;
 }
 
+.note {
+    text-align: center;
+}
+
+.completed {
+    color: #2974e4
+}
+
 .flash_message {
     background-color: #FDD26E;
     margin: auto;

@@ -90,6 +90,7 @@
 
         <div>
             <h2 class="page-title">List of Available Challenges</h2>
+            <p class="note">(challenges you are already participating in or have completed are colored blue)</p>
         </div>
 
             <thead>
@@ -110,7 +111,11 @@
 
                 {% for row in content['challenges'] %}
                 <tr>
-                    <td>{{row['name']}}</td>
+                      {%if row.id in content['current_challenges']%}
+                     <td class="completed">{{row['name']}}</td> 
+                      {%else%}
+                      <td>{{row['name']}}</td>
+                      {%endif%}
                     <td>{{row['exercise_type']}}</td>
                     <td>{{row['description']}}</td>
                     <td>{{row['duration']}}</td>

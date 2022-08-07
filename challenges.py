@@ -57,6 +57,17 @@ def challenges_get(uid):
 
         output["id"] = uid
 
+        # code for which challenges are current, to show the user on 'participate'. 
+        output["current_challenges"] = []
+        user_query = client.query(kind=constants.users)
+        user_accounts = list(user_query.fetch())
+        for user_1 in user_accounts:
+            if user_1.id == int(uid):
+                current_challenges = user_1["challenges"]
+                for challenge in current_challenges:
+                        output["current_challenges"].append(int(challenge["challenge_id"]))
+        print(output["current_challenges"])
+
         res = make_response(render_template("participate.html", content=output))
         res.headers.set('Content-Type', 'text/html')
         res.status_code = 200
